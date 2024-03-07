@@ -1,0 +1,32 @@
+.info-user{
+    width: 20vh;
+    height: 20vh;
+
+    padding: 10px;
+}
+
+#avatar-user{
+    width: 10vh;
+    height: 10vh;
+}
+
+.font-item-drawer{
+    font-family: inherit !important;
+    font-size: 10px !important;
+
+    font-weight: bold !important;
+}
+
+.btn-list-drawer{
+    margin-top: 5px !important;
+}
+
+.btn-list-drawer:hover{
+    border-radius: 5px;
+
+    color: darkgreen;
+
+    background-color: rgb(212, 248, 217) !important;
+
+    transition: all 0.5s;
+}
