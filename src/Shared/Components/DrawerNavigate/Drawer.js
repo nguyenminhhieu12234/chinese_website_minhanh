@@ -3,27 +3,20 @@ import Drawer from '@mui/material/Drawer';
 import Avatar from '@mui/material/Avatar';
 import './Drawer.css';
 import avatar1 from '../../Images/Avatar_user/avatar_user_1.jpg';
-import { Divider, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography, makeStyles } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Divider, Grid, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from "@mui/material";
+import { Link, useNavigate, Router } from "react-router-dom";
 import List from '@mui/material/List';
+import {list_menu_drawer} from '../../CommonData/CommonData';
 
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+const drawerWidth = 150;
 
 function DrawerAdmin(){
     const [anchorEl, setAnchorEl] = useState();
     const [openInfo, setOpenInfo] = useState(false);
     const navigate = useNavigate();
     const [selectMenuIndex, setSelectMenuIndex] = useState(0);
-
-    const selectedStyles = makeStyles({
-        root:{
-            "&.Mui-selected":{
-                color: "darkgreen"
-            }
-        }
-    });
 
     const avatarHandle = (e) => {
         if(openInfo){
@@ -42,16 +35,22 @@ function DrawerAdmin(){
 
     const selectMenuHandle = (event, itemIndex) => {
         setSelectMenuIndex(itemIndex);
+
+        navigate('/admin/course');
     }
 
     return(
-        <Drawer id="drawer-admin" open={true}>
+        <Drawer id="drawer-admin" open={true} variant="permanent" anchor="left" sx={{
+            width: drawerWidth}}>
             <div className="info-user">
                 <Grid align='center'>
                     <IconButton onClick={avatarHandle}>
                         <Avatar id="avatar-user" src={avatar1}></Avatar>
-                        <Menu anchorEl={anchorEl} open={openInfo}>
-                            <MenuItem onClick={logoutHandle}>Logout</MenuItem>
+                        <Menu className="menu-info" anchorEl={anchorEl} open={openInfo}>
+                            <MenuItem className="btn-menu-info" onClick={logoutHandle}>
+                                <LogoutIcon className="icon-style"/>
+                                <Typography className="font-item-style">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </IconButton>
                     <Typography sx={{fontSize: 10}}>Teacher</Typography>
@@ -60,32 +59,18 @@ function DrawerAdmin(){
             </div>
             <Divider />
             <List sx={{padding: 1}}>
-                <ListItem disablePadding selected={selectMenuIndex == 0}>
-                    <ListItemButton className="btn-list-drawer" onClick={(event) => selectMenuHandle(event, 0)}>
-                        <HomeIcon sx={{marginRight: '10px', fontSize: "15px"}}/>
-                        <ListItemText>
-                            <Typography className="font-item-drawer">Home</Typography>
-                        </ListItemText>
-                    </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding selected={selectMenuIndex == 1}>
-                    <ListItemButton className="btn-list-drawer" onClick={(event) => selectMenuHandle(event, 1)}>
-                        <MenuBookIcon sx={{marginRight: '10px', fontSize: "15px"}}/>
-                        <ListItemText>
-                            <Typography className="font-item-drawer">Course</Typography>
-                        </ListItemText>
-                    </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding selected={selectMenuIndex == 2}>
-                    <ListItemButton className="btn-list-drawer" onClick={(event) => selectMenuHandle(event, 2)}>
-                        <PersonIcon sx={{marginRight: '10px', fontSize: "15px"}}/>
-                        <ListItemText>
-                            <Typography className="font-item-drawer">Student</Typography>
-                        </ListItemText>
-                    </ListItemButton>
-                </ListItem>
+                {
+                    list_menu_drawer.map((item) => (
+                            <ListItem key={item.name + item.index} disablePadding selected={selectMenuIndex == item.index} className={selectMenuIndex == item.index ? 'btn-list-active' : ''}>
+                                <ListItemButton className="btn-list-drawer" onClick={(event) => selectMenuHandle(event, item.index)}>
+                                    {item.icon}
+                                    <ListItemText>
+                                        <Typography className="font-item-style">{item.name}</Typography>
+                                    </ListItemText>
+                                </ListItemButton>
+                            </ListItem>
+                    ))
+                }
             </List>
         </Drawer>
     );

@@ -1,11 +1,19 @@
 import React from "react";
 import './HomeAdminView.css';
-import { Link } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import DrawerAdmin from "Shared/Components/DrawerNavigate/Drawer";
+import CourseAdminView from '../CourseAdminView/CourseAdminView.js';
 
 function HomeAdminView(){
     return(
-        <DrawerAdmin></DrawerAdmin>
+        <div className="home-page">
+            <DrawerAdmin></DrawerAdmin>
+            <div className="area-content">
+                <Routes>
+                    <Route path="/admin/course" element={<CourseAdminView></CourseAdminView>}></Route>
+                </Routes>
+            </div>
+        </div>
     );
 }
 

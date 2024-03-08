@@ -1,8 +1,11 @@
 .info-user{
-    width: 20vh;
-    height: 20vh;
+    width: 100%;
 
     padding: 10px;
+}
+
+.MuiDrawer-paper{
+    width: 150px;
 }
 
 #avatar-user{
@@ -10,7 +13,7 @@
     height: 10vh;
 }
 
-.font-item-drawer{
+.font-item-style{
     font-family: inherit !important;
     font-size: 10px !important;
 
@@ -29,4 +32,44 @@
     background-color: rgb(212, 248, 217) !important;
 
     transition: all 0.5s;
+}
+
+.btn-list-active{
+    border-radius: 5px;
+
+    margin-top: 5px;
+
+    color: darkgreen;
+    background-color: rgb(212, 248, 217) !important;
+
+    transition: all 0.5s;
+}
+
+.icon-style{
+    margin-right: 10px !important;
+
+    font-size: 15px !important;
+}
+
+.menu-info{
+    
+}
+
+.btn-menu-info{
+    padding: 10px !important;
+
+    margin: 5px !important;
+}
+
+.btn-menu-info:hover{
+    color: darkgreen;
+    background-color: rgb(212, 248, 217) !important;
+
+    border-radius: 5px;
+}
+
+.link-item-drawer{
+    text-decoration: none;
+
+    color: black;
 }
