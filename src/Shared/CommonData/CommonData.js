@@ -8,7 +8,7 @@ export const list_menu_drawer = [
         index: 0,
         name: 'Dashboard',
         icon: <HomeIcon className='icon-style'/>,
-        link: ''
+        link: '/admin'
     },
     {
         index: 1,
@@ -27,5 +27,20 @@ export const list_menu_drawer = [
         name: 'About',
         icon: <InfoIcon className='icon-style'/>,
         link: ''
+    }
+];
+
+export const listShift = [
+    {
+        id: 'MORNING',
+        name: 'Morning'
+    },
+    {
+        id: 'AFTERNOON',
+        name: 'Afternoon'
+    },
+    {
+        id: 'NIGHT',
+        name: 'Night'
     }
 ];

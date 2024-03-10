@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeAdminView from 'Views/HomeAdminView/HomeAdminView';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import CourseAdminView from 'Views/CourseAdminView/CourseAdminView';
+import { MainProvider } from 'Context/MainContext';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -20,14 +22,16 @@ function App() {
   }, [localStorage.getItem('tokenLogin')]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
-        <Route path='/login' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
-        <Route path='/admin' element={isLogin ? <HomeAdminView></HomeAdminView> : <Navigate to='/login'/>}></Route>
-        <Route ></Route>
-      </Routes>
-    </BrowserRouter>
+    <MainProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
+          <Route path='/login' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
+          <Route path='/admin' element={isLogin ? <HomeAdminView></HomeAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/admin/course' element={isLogin ? <CourseAdminView></CourseAdminView> : <Navigate to='/login'/>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </MainProvider>
   );
 }
 

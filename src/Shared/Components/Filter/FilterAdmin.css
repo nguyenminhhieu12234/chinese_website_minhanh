@@ -1,0 +1,15 @@
+.filter-search{
+    width: 100%;
+}
+
+.filter-content{
+    padding: 10px;
+}
+
+#btnSearch{
+    background-color: rgb(17, 223, 45) !important;
+}
+
+.filter-select{
+    width: 100%;
+}

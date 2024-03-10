@@ -5,7 +5,9 @@
 }
 
 .MuiDrawer-paper{
-    width: 150px;
+    overflow: hidden;
+
+    width: 200px;
 }
 
 #avatar-user{
