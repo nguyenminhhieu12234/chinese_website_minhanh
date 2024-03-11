@@ -2,14 +2,15 @@
     width: 100%;
 }
 
-.filter-content{
-    padding: 10px;
+.filter-item-bar{
+    color: black !important;
+    border-color: darkgrey !important;
+
+    margin-right: 5px !important;
 }
 
-#btnSearch{
-    background-color: rgb(17, 223, 45) !important;
-}
-
-.filter-select{
-    width: 100%;
+.filter-button-bar:hover{
+    color: darkgreen !important;
+    background-color: rgb(212, 248, 217) !important;
+    border-color: darkgreen !important;
 }

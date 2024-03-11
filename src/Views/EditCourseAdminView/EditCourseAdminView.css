@@ -1,0 +1,41 @@
+.edit-course-view{
+    display: flex;
+}
+
+.edit-course-area{
+    width: 100%;
+
+    margin: 10px;
+}
+
+.area-content{
+    padding: 5px;
+
+    position: relative;
+
+    margin-top: 5px;
+}
+
+.box-input-content{
+    margin-top: 20px;
+}
+
+.input-data-course{
+    width: 100%;
+}
+
+.group-input-course{
+    margin-top: 10px;
+}
+
+.course-background{
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+#btnSelectImg{
+    background-color: rgb(79, 218, 79);
+}

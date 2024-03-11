@@ -5,5 +5,25 @@
 .course-content{
     width: 100%;
 
-    margin-left: 10px;
+    padding: 10px;
+}
+
+.course-list{
+    margin-top: 10px;
+}
+
+.count-student{
+    margin-top: 10px;
+
+    display: flex;
+}
+
+.btnDetailCourse{
+    background-color: rgb(79, 218, 79);
+
+    margin-top: 20px;
+}
+
+.btnDetailCourse:hover{
+    background-color: rgb(79, 218, 79);
 }

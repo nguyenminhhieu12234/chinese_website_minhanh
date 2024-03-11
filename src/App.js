@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import CourseAdminView from 'Views/CourseAdminView/CourseAdminView';
 import { MainProvider } from 'Context/MainContext';
+import EditCourseAdminView from 'Views/EditCourseAdminView/EditCourseAdminView';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -29,6 +30,7 @@ function App() {
           <Route path='/login' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
           <Route path='/admin' element={isLogin ? <HomeAdminView></HomeAdminView> : <Navigate to='/login'/>}></Route>
           <Route path='/admin/course' element={isLogin ? <CourseAdminView></CourseAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/admin/course/edit' element={isLogin ? <EditCourseAdminView></EditCourseAdminView> : <Navigate to='/login'/>}></Route>
         </Routes>
       </BrowserRouter>
     </MainProvider>
