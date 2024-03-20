@@ -24,7 +24,7 @@ function DrawerAdmin(){
         if(mainContext.drawerIndex != null){
             setSelectMenuIndex(mainContext.drawerIndex);
         }
-    }, selectMenuIndex);
+    }, [selectMenuIndex]);
 
     const avatarHandle = (e) => {
         if(openInfo){
@@ -36,7 +36,9 @@ function DrawerAdmin(){
     }
 
     const logoutHandle = () => {
-        localStorage.removeItem('tokenLogin');
+        localStorage.removeItem('token');
+
+        mainContext.setIsLoginContext(false);
 
         navigate('/login');
     }

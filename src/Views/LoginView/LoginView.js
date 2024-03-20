@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './LoginView.css';
 import Paper from '@mui/material/Paper';
 import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
@@ -6,10 +6,12 @@ import loginImage from "../../Shared/Images/img_login.jpg";
 import LoginApi from "../../Api/LoginApi";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from "react-router-dom";
+import MainContext from "Context/MainContext";
 
 function LoginView(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
     const [showError, setShowError] = useState(false);
     const [waitingLogin, setWaitingLogin] = useState(false);
     const [errorMsg, setErrorMsg] = useState();
@@ -18,6 +20,7 @@ function LoginView(){
     const [emailMsg, setEmailMsg]= useState('');
     const [passMsg, setPassMsg] = useState('');
     const navigate = useNavigate();
+    const mainContext = useContext(MainContext);
 
     const usernameHandle = (event) => {
         setValidateEmail(false);
@@ -51,7 +54,7 @@ function LoginView(){
             setWaitingLogin(false);
         }else{
             const params = {
-                "email": username,
+                "username": username,
                 "password": password
             };    
 
@@ -59,12 +62,14 @@ function LoginView(){
                 const response = await LoginApi.login(params);
     
                 if(response != null){
-                    localStorage.setItem("tokenLogin", response.token);
+                    localStorage.setItem("token", response.token);
 
                     setShowError(false);
                     setWaitingLogin(false);
-
-                    navigate('/admin');
+                    
+                    mainContext.setIsLoginContext(true);
+                    
+                    navigate("/admin");
                 }
             }catch(error){
                 const status_error = error.response.status;

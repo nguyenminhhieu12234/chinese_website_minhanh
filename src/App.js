@@ -1,39 +1,39 @@
-import { Login } from '@mui/icons-material';
+import { Home, Login } from '@mui/icons-material';
 import './App.css';
 import LoginView from './Views/LoginView/LoginView';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeAdminView from 'Views/HomeAdminView/HomeAdminView';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import CourseAdminView from 'Views/CourseAdminView/CourseAdminView';
-import { MainProvider } from 'Context/MainContext';
 import EditCourseAdminView from 'Views/EditCourseAdminView/EditCourseAdminView';
+import MainContext from 'Context/MainContext';
+import StudentAdminView from 'Views/StudentAdminView/StudentAdminView';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const mainContext = useContext(MainContext);
 
   useEffect(() => {
-    const getToken = localStorage.getItem('tokenLogin');
+    var accessToken = localStorage.getItem("token");
 
-    if(getToken != null){
-      setIsLogin(true);
+    if(accessToken != null){
+      mainContext.setIsLoginContext(true);
     }else{
-      setIsLogin(false);
+      mainContext.setIsLoginContext(false);
     }
-  }, [localStorage.getItem('tokenLogin')]);
+  }, []);
 
   return (
-    <MainProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
-          <Route path='/login' element={isLogin ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
-          <Route path='/admin' element={isLogin ? <HomeAdminView></HomeAdminView> : <Navigate to='/login'/>}></Route>
-          <Route path='/admin/course' element={isLogin ? <CourseAdminView></CourseAdminView> : <Navigate to='/login'/>}></Route>
-          <Route path='/admin/course/edit' element={isLogin ? <EditCourseAdminView></EditCourseAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/' element={mainContext.isLoginContext ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
+          <Route path='/login' element={mainContext.isLoginContext ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
+          <Route path='/admin' element={mainContext.isLoginContext ? <HomeAdminView></HomeAdminView> : <Navigate to="/login"/>}></Route>
+          <Route path='/admin/course' element={mainContext.isLoginContext ? <CourseAdminView></CourseAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/admin/course/edit' element={mainContext.isLoginContext ? <EditCourseAdminView></EditCourseAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/admin/student' element={mainContext.isLoginContext ? <StudentAdminView></StudentAdminView> : <Navigate to='/login'/>}></Route>
         </Routes>
       </BrowserRouter>
-    </MainProvider>
   );
 }
 

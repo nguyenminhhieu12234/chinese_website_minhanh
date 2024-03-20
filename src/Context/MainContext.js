@@ -4,8 +4,14 @@ const MainContext = createContext();
 
 export const MainProvider = ({children}) => {
     const [drawerIndex, setDrawerIndex] = useState();
+    const [isLoginContext, setIsLoginContext] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
-    const respone = {drawerIndex, setDrawerIndex};
+    const respone = {
+        drawerIndex, setDrawerIndex, 
+        isLoginContext, setIsLoginContext,
+        openModal, setOpenModal,
+    };
 
     return(
         <MainContext.Provider value={respone}>

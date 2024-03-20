@@ -2,8 +2,9 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-    baseURL: 'https://reqres.in',
+    baseURL: 'https://minhanhwebapi.azurewebsites.net',
     headers: {
+        "Access-Control-Allow-Origin": "*",
         'content-type': 'application/json'
     },
     paramsSerializer: params => queryString.stringify(params)
@@ -15,7 +16,7 @@ axiosClient.interceptors.request.use(async (config) => {
 
 axiosClient.interceptors.response.use((response) => {
     if(response && response.data){
-        return response.data;
+        return response.data._data;
     }
 
     return response;

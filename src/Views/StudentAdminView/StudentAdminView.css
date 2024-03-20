@@ -1,0 +1,42 @@
+.student-page{
+    display: flex;
+}
+
+.student-content{
+    width: 100%;
+
+    padding: 10px;
+}
+
+.filter-content{
+    margin-bottom: 10px;
+}
+
+.modal-new-user{
+    border-radius: 5px;
+
+    background-color: #ffffff;
+
+    width: 50vh;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 10px;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.txtInfoNewUser{
+    margin-top: 10px !important;
+
+    width: 100%;
+}
+
+.btnModal{
+    background-color: rgb(17, 223, 45) !important;
+}

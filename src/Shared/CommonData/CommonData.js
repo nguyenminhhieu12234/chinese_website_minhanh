@@ -20,7 +20,7 @@ export const list_menu_drawer = [
         index: 2,
         name: 'Students',
         icon: <PersonIcon className='icon-style'/>,
-        link: ''
+        link: '/admin/student'
     },
     {
         index: 3,
