@@ -11,6 +11,7 @@ import MainContext from "Context/MainContext";
 function LoginView(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [currentUserRole, setCurrentUserRole] = useState('');
     const [token, setToken] = useState('');
     const [showError, setShowError] = useState(false);
     const [waitingLogin, setWaitingLogin] = useState(false);
@@ -62,14 +63,19 @@ function LoginView(){
                 const response = await LoginApi.login(params);
     
                 if(response != null){
-                    localStorage.setItem("token", response.token);
 
-                    setShowError(false);
-                    setWaitingLogin(false);
-                    
-                    mainContext.setIsLoginContext(true);
-                    
-                    navigate("/admin");
+                    if(response.userRole === 'Admin'){
+                        localStorage.setItem("token", response.token);
+                        localStorage.setItem("userInfo", JSON.stringify(response));
+
+                        setShowError(false);
+                        setWaitingLogin(false);
+
+                        mainContext.setIsLoginContext(true);
+                        mainContext.setDrawerIndex(0);
+                        console.log(currentUserRole);
+                        navigate("/admin");
+                    }
                 }
             }catch(error){
                 const status_error = error.response.status;

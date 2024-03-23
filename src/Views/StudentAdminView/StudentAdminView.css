@@ -40,3 +40,7 @@
 .btnModal{
     background-color: rgb(17, 223, 45) !important;
 }
+
+.lbl-cell-user{
+    font-weight: bold !important;
+}

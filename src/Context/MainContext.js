@@ -10,7 +10,7 @@ export const MainProvider = ({children}) => {
     const respone = {
         drawerIndex, setDrawerIndex, 
         isLoginContext, setIsLoginContext,
-        openModal, setOpenModal,
+        openModal, setOpenModal
     };
 
     return(

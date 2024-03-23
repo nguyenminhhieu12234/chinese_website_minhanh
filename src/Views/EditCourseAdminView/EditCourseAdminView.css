@@ -34,8 +34,30 @@
     display: flex;
 
     justify-content: center;
+
+    padding: 20px;
+}
+
+.course-background > img{
+    width: 30%;
+    height: 30%;
+
+    object-fit: contain !important;
 }
 
 #btnSelectImg{
     background-color: rgb(79, 218, 79);
+}
+
+#btnSave{
+    margin-top: 10px;
+
+    background-color: rgb(79, 218, 79);
+}
+
+#btnCancel{
+    margin-top: 10px;
+    margin-left: 10px;
+
+    background-color: red;
 }

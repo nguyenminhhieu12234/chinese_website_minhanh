@@ -1,16 +1,20 @@
 import React, { useContext, useEffect } from "react";
 import './StudentAdminView.css';
 import DrawerAdmin from "Shared/Components/DrawerNavigate/Drawer";
-import { Avatar, Button, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Toolbar, Typography, Box, TextField, Grid } from "@mui/material";
+import { Avatar, Button, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Toolbar, Typography, Box, TextField, Grid, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import mainApi from "Api/mainApi";
 import { useState } from "react";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MainContext from "Context/MainContext";
+import Swal from "sweetalert2";
+import { CommonModal } from "Shared/Modals/CommonModal";
 
 function StudentAdminView(){
     const [listUSers, setListUsers] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [checkError, setCheckError] = useState(true);
+    const [reloadList, setReloadList] = useState(false);
+    const [currentUserInfo, setCurrentUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
     const [infoNewUser, setInfoNewUser] = useState({
         fullName: '',
         address: '',
@@ -28,7 +32,7 @@ function StudentAdminView(){
         }
 
         fetchData();
-    }, []);
+    }, [reloadList]);
 
     const addNewUserHandle = () => {
         setOpenModal(true);
@@ -53,6 +57,8 @@ function StudentAdminView(){
             params.typeAccount = "Student";
         }
 
+        params.createUser = currentUserInfo.userName;
+
         for(const key in params){
             if(params[key] === ""){
                 setCheckError(false);
@@ -60,8 +66,16 @@ function StudentAdminView(){
         }
 
         if(checkError === true){
-            console.log(params);
-            //mainApi.createUser(params);
+            const respone = mainApi.createUser(params);
+
+            if(respone != null){
+                setOpenModal(false);
+                CommonModal('SUCCESS', 'Create user success!!!', 'success', true, false);
+                setReloadList(true);
+            }
+        }else{
+            setOpenModal(false);
+            CommonModal('ERROR', 'Create user failed!', 'error', false, true);
         }
     }
 
@@ -76,32 +90,42 @@ function StudentAdminView(){
                 </Paper>
 
                 <Paper className="area-list-users">
-                    <List>
-                        {listUSers.map(user => (
-                            <ListItem key={user.userName}>
-                                <ListItemAvatar>
-                                    <Avatar></Avatar>
-                                </ListItemAvatar>
-                                <ListItemText>
-                                    <Typography>{user.fullName}</Typography>
-                                    <Typography>{user.userName}</Typography>
-                                </ListItemText>
-                                <ListItemText>
-                                    <Typography>{user.email}</Typography>
-                                    <Typography>{user.phoneNumber}</Typography>
-                                </ListItemText>
-                                <ListItemText>
-                                    <Typography>{user.address}</Typography>
-                                </ListItemText>
-                                <ListItemText>
-                                    <Typography>Admin</Typography>
-                                </ListItemText>
-                                <IconButton>
-                                    <CalendarMonthIcon></CalendarMonthIcon>
-                                </IconButton>
-                            </ListItem>
-                        ))}
-                    </List>
+                    <TableContainer>
+                        <Table sx={{minWidth: '100%'}} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell className="lbl-cell-user" align="left">ID</TableCell>
+                                    <TableCell className="lbl-cell-user" align="center">Avatar</TableCell>
+                                    <TableCell className="lbl-cell-user" align="left">Full Name</TableCell>
+                                    <TableCell className="lbl-cell-user" align="left">Address</TableCell>
+                                    <TableCell className="lbl-cell-user">Email</TableCell>
+                                    <TableCell className="lbl-cell-user" align="center">UserName</TableCell>
+                                    <TableCell className="lbl-cell-user" align="center">Status</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    listUSers.map(user => (
+                                        <TableRow key={user.userName}>
+                                            <TableCell align="left">{user.id}</TableCell>
+                                            <TableCell align="center">
+                                                <Avatar></Avatar>
+                                            </TableCell>
+                                            <TableCell>{user.fullName}</TableCell>
+                                            <TableCell>{user.address}</TableCell>
+                                            <TableCell>{user.email}</TableCell>
+                                            <TableCell align="center">{user.userName}</TableCell>
+                                            <TableCell align="center">{!user.isDeleted ? "On" : "Lock"}</TableCell>
+                                            <TableCell>
+                                                <Button>lock</Button>
+                                                <Button>open</Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Paper>
 
                 <Modal open={openModal}>

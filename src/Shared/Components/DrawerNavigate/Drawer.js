@@ -19,6 +19,7 @@ function DrawerAdmin(){
     const navigate = useNavigate();
     const [selectMenuIndex, setSelectMenuIndex] = useState(0);
     const mainContext = useContext(MainContext);
+    const [currentUserInfo, setCurrentUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
 
     useEffect(() => {
         if(mainContext.drawerIndex != null){
@@ -37,6 +38,7 @@ function DrawerAdmin(){
 
     const logoutHandle = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userInfo');
 
         mainContext.setIsLoginContext(false);
 
@@ -66,8 +68,8 @@ function DrawerAdmin(){
                             </MenuItem>
                         </Menu>
                     </IconButton>
-                    <Typography sx={{fontSize: 10}}>Teacher</Typography>
-                    <Typography sx={{fontSize: 10, fontWeight: 'bold'}}>Nguyen Minh Hieu</Typography>
+                    <Typography sx={{fontSize: 10}}>{currentUserInfo.userRole}</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 'bold'}}>{currentUserInfo.fullName}</Typography>
                 </Grid>
             </div>
             <Divider />
