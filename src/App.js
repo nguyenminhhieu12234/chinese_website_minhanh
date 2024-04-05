@@ -9,6 +9,8 @@ import CourseAdminView from 'Views/CourseAdminView/CourseAdminView';
 import EditCourseAdminView from 'Views/EditCourseAdminView/EditCourseAdminView';
 import MainContext from 'Context/MainContext';
 import StudentAdminView from 'Views/StudentAdminView/StudentAdminView';
+import DailyView from 'Views/DailyTimeView/DailyView';
+import CheckDailyView from 'Views/CheckDailyView/CheckDailyView';
 
 function App() {
   const mainContext = useContext(MainContext);
@@ -28,10 +30,12 @@ function App() {
         <Routes>
           <Route path='/' element={mainContext.isLoginContext ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
           <Route path='/login' element={mainContext.isLoginContext ? <Navigate to='/admin'/> : <LoginView></LoginView>}></Route>
-          <Route path='/admin' element={mainContext.isLoginContext ? <HomeAdminView></HomeAdminView> : <Navigate to="/login"/>}></Route>
-          <Route path='/admin/course' element={mainContext.isLoginContext ? <CourseAdminView></CourseAdminView> : <Navigate to='/login'/>}></Route>
-          <Route path='/admin/course/edit' element={mainContext.isLoginContext ? <EditCourseAdminView></EditCourseAdminView> : <Navigate to='/login'/>}></Route>
-          <Route path='/admin/student' element={mainContext.isLoginContext ? <StudentAdminView></StudentAdminView> : <Navigate to='/login'/>}></Route>
+          <Route path='/admin' element={mainContext.isLoginContext ? <HomeAdminView></HomeAdminView> : <LoginView></LoginView>}></Route>
+          <Route path='/admin/course' element={mainContext.isLoginContext ? <CourseAdminView></CourseAdminView> : <LoginView></LoginView>}></Route>
+          <Route path='/admin/course/edit' element={mainContext.isLoginContext ? <EditCourseAdminView></EditCourseAdminView> : <LoginView></LoginView>}></Route>
+          <Route path='/admin/student' element={mainContext.isLoginContext ? <StudentAdminView></StudentAdminView> : <LoginView></LoginView>}></Route>
+          <Route path='/admin/daily' element={mainContext.isLoginContext ? <DailyView></DailyView> : <LoginView></LoginView>}></Route>
+          <Route path='/user/dailyview' element={mainContext.isLoginContext ? <CheckDailyView></CheckDailyView> : <LoginView></LoginView>}></Route>
         </Routes>
       </BrowserRouter>
   );

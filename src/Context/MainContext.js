@@ -6,11 +6,13 @@ export const MainProvider = ({children}) => {
     const [drawerIndex, setDrawerIndex] = useState();
     const [isLoginContext, setIsLoginContext] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const respone = {
         drawerIndex, setDrawerIndex, 
         isLoginContext, setIsLoginContext,
-        openModal, setOpenModal
+        openModal, setOpenModal,
+        isAdmin, setIsAdmin
     };
 
     return(

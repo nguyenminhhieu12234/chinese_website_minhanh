@@ -13,9 +13,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import mainApi from "Api/mainApi";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { CommonModal } from "Shared/Modals/CommonModal";
 
 function CourseAdminView(){
     const mainContext = useContext(MainContext);
+    const [messageRunDaily, setMessageRunDaily] = useState("");
     const [listCourses, setListCourses] = useState([]);
 
     useEffect(() => {
@@ -25,6 +27,50 @@ function CourseAdminView(){
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        if(messageRunDaily === 'success'){
+            CommonModal("success", "Run course success", 'success', false, true);
+        }else if(messageRunDaily === 'exists'){
+            CommonModal("ERROR", "Course was run in this day please check daily", 'error', false, true);
+        }else if(messageRunDaily === ''){
+            return;
+        }else if(messageRunDaily === null){
+            CommonModal("ERROR", "Course was run in this day please check daily", 'error', false, true);
+        }else{
+            CommonModal("ERROR", "Run course failed!!!", 'error', false, true);
+        }
+
+        setMessageRunDaily('');
+    }, [messageRunDaily]);
+
+    const RunDailyHandle = (courseId) => {
+        const params = {
+            courseId: courseId
+        };
+
+        console.log(params);
+
+        async function fetchData(){
+            setMessageRunDaily(await mainApi.runDaily(params));
+        }
+
+        fetchData();
+
+        /*if(messageRunDaily === undefined){
+            message = 'success';
+        }else{
+            message = messageRunDaily.data._message;
+        }
+
+        if(message === 'exists'){
+            CommonModal("ERROR", "Course was run in this day please check daily", 'error', false, true);
+        }else if(message === 'failed'){
+            CommonModal("ERROR", "Run course failed!!!", 'error', false, true);
+        }else{
+            CommonModal("success", "Run course success", 'success', false, true);
+        }*/
+    }
 
     return(
         <div className="course-page">
@@ -51,7 +97,7 @@ function CourseAdminView(){
                                             </div>
                                         </CardContent>
                                         <CardActions>
-                                            <Button size="small" sx={{fontWeight: 'bold'}}>
+                                            <Button size="small" sx={{fontWeight: 'bold'}} onClick={() => RunDailyHandle(course.id)}>
                                                 Run
                                             </Button>
                                             <Button size="small">

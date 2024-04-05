@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import './LoginView.css';
 import Paper from '@mui/material/Paper';
-import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import loginImage from "../../Shared/Images/img_login.jpg";
 import LoginApi from "../../Api/LoginApi";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from "react-router-dom";
 import MainContext from "Context/MainContext";
+import { CommonModal } from "Shared/Modals/CommonModal";
 
 function LoginView(){
     const [username, setUsername] = useState('');
@@ -62,7 +63,7 @@ function LoginView(){
             try{
                 const response = await LoginApi.login(params);
     
-                if(response != null){
+                if(response.data === undefined){
 
                     if(response.userRole === 'Admin'){
                         localStorage.setItem("token", response.token);
@@ -73,11 +74,28 @@ function LoginView(){
 
                         mainContext.setIsLoginContext(true);
                         mainContext.setDrawerIndex(0);
-                        console.log(currentUserRole);
+                        mainContext.setIsAdmin(true);
                         navigate("/admin");
+                    }else{
+                        localStorage.clear();
+
+                        localStorage.setItem("userInfo", JSON.stringify(response));
+
+                        setShowError(false);
+                        setWaitingLogin(false);
+
+                        mainContext.setIsLoginContext(true);
+
+                        navigate("/user/dailyview");
                     }
+                }else{
+                    setWaitingLogin(false);
+
+                    CommonModal("WARNING", "Login failed", 'warning', false, true);
                 }
             }catch(error){
+                console.log(error);
+
                 const status_error = error.response.status;
     
                 if(status_error === 400){

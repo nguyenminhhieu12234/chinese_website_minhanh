@@ -1,0 +1,15 @@
+.daily-page{
+    display: flex;
+}
+
+.daily-content{
+    width: 100%;
+
+    padding: 10px;
+}
+
+.btnSearch{
+    background-color: darkgreen !important;
+
+    margin: 10px !important;
+}

@@ -24,6 +24,22 @@ const mainApi = {
     getCourses: () => {
         const url = '/api/Course/get-courses';
         return axiosClient.get(url);
+    },
+    runDaily: (params) => {
+        const url = '/api/Course/run-daily';
+        return axiosClient.post(url, params);
+    },
+    getDaily: (params) => {
+        const url = '/api/Daily/get-daily';
+        return axiosClient.get(url, {params});
+    },
+    getDailyStudent: (params) => {
+        const url = '/api/Daily/get-daily-student';
+        return axiosClient.get(url, {params});
+    },
+    updateDaily: (params) => {
+        const url = '/api/Daily/update-daily';
+        return axiosClient.post(url, params);
     }
 }
 

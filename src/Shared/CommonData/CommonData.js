@@ -2,6 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 export const list_menu_drawer = [
     {
@@ -24,6 +25,12 @@ export const list_menu_drawer = [
     },
     {
         index: 3,
+        name: 'Daily',
+        icon: <CalendarMonthIcon className='icon-style'/>,
+        link: '/admin/daily'
+    },
+    {
+        index: 4,
         name: 'About',
         icon: <InfoIcon className='icon-style'/>,
         link: ''

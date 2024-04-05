@@ -16,9 +16,11 @@ axiosClient.interceptors.request.use(async (config) => {
 
 axiosClient.interceptors.response.use((response) => {
     if(response && response.data){
+        console.log('run 1');
         return response.data._data;
     }
 
+    console.log("run 2");
     return response;
 }, (error) => {
     throw error;
