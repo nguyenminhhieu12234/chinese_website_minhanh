@@ -12,6 +12,8 @@ function DailyView(){
     const [searchUserId, setSearchUserId] = useState("");
     const [listDaily, setListDaily] = useState([]);
 
+    const VND = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'});
+
 
     const handleUserId = (event) => {
         setSearchUserId(event.target.value);
@@ -77,7 +79,7 @@ function DailyView(){
                                                 <TableCell>{daily.teachDate}</TableCell>
                                                 <TableCell>{daily.fullName}</TableCell>
                                                 <TableCell align="center">{daily.check === false ? "False" : "True"}</TableCell>
-                                                <TableCell>{daily.cost}</TableCell>
+                                                <TableCell>{VND.format(daily.cost)}</TableCell>
                                             </TableRow>
                                         ))
                                     }

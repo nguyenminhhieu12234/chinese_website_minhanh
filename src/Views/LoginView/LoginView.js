@@ -94,15 +94,9 @@ function LoginView(){
                     CommonModal("WARNING", "Login failed", 'warning', false, true);
                 }
             }catch(error){
-                console.log(error);
+                setWaitingLogin(false);
 
-                const status_error = error.response.status;
-    
-                if(status_error === 400){
-                    setErrorMsg('email or password is incorrect!');
-                    setShowError(true);
-                    setWaitingLogin(false);
-                }
+                CommonModal("ERROR", 'Login failed', 'warning', false, true);
             }
         }
 

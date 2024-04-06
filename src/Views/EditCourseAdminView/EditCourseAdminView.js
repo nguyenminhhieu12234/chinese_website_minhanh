@@ -20,7 +20,7 @@ function EditCourseAdminView(){
     const [detailCourse, setDetailCourse]= useState({
         title: '',
         Detail: '',
-        courseCost: '',
+        Cost: '',
         shiftID: 0,
         BackgroundId: '',
         userCreate: JSON.parse(localStorage.getItem('userInfo')).userName
@@ -30,7 +30,7 @@ function EditCourseAdminView(){
 
     useEffect(() => {
         async function fetchData(){
-            setListStudent(await mainApi.getUsers());
+            setListStudent(await mainApi.getListStudent());
             setListShifts(await mainApi.getShifts());
         }
 
@@ -80,6 +80,8 @@ function EditCourseAdminView(){
 
                 newCourse.Students = listIdStudent;
 
+                console.log(newCourse);
+
                 mainApi.createCourse(newCourse);
 
                 CommonModal('SUCCESS', 'Create course success!!!', 'success', true, false, navigate);
@@ -100,7 +102,7 @@ function EditCourseAdminView(){
     const handleInfoCourseChange = (event) => {
         const {name, value} = event.target;
 
-        setDetailCourse({...detailCourse, [name]: value});
+        setDetailCourse({...detailCourse, [name]: name === 'Cost' ? parseInt(value) : value});
     }
 
     return(
@@ -144,7 +146,7 @@ function EditCourseAdminView(){
                                 </Box>
                                 <Box className="group-input-course">
                                     <Typography sx={{fontFamily: 'inherit', fontSize: 15}}>Cost:</Typography>
-                                    <TextField id="txtCourseCost" name="courseCost" className="input-data-course" size="small" onChange={handleInfoCourseChange}></TextField>
+                                    <TextField id="txtCourseCost" name="Cost" className="input-data-course" size="small" onChange={handleInfoCourseChange}></TextField>
                                 </Box>
                                 <Box className="group-input-course">
                                     <Select className="input-data-course" multiple 

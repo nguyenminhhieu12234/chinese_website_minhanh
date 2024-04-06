@@ -5,6 +5,10 @@ const mainApi = {
         const url = '/api/User/get-users';
         return axiosClient.get(url);
     },
+    getListStudent: () => {
+        const url = '/api/User/get-list-students';
+        return axiosClient.get(url);
+    },
     getIdUsers: (params) => {
         const url = '/api/User/get-id-users';
         return axiosClient.post(url, params);
